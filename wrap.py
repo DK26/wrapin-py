@@ -1,5 +1,4 @@
-# License: MIT
-# ============
+# MIT License
 #
 # Copyright 2022 David Krasnitsky <dikaveman@gmail.com>
 #
@@ -26,8 +25,7 @@ import zlib
 import platform
 from datetime import datetime
 
-PY_CONTAINER_TEMPLATE = r'''# License: MIT
-# ============
+PY_CONTAINER_TEMPLATE = r'''# MIT License
 #
 # Copyright 2022 David Krasnitsky <dikaveman@gmail.com>
 #
@@ -206,10 +204,6 @@ def main():
     else:
         target_platform = Environment.PLATFORM
 
-    # if len(sys.argv) == 1:
-    #     print("Failed: No file was provided")
-    #     exit(-1)
-
     wrapper_name = os.path.basename(__file__)
     file_path = args.binary_file
 
@@ -241,6 +235,7 @@ def main():
 
     if equal_paths(wrapper_name, py_container_script_file):
         print("Failed: Attempted to wrap the wrapper tool itself.")
+        exit(-1)
 
     with open(py_container_script_file, 'wb') as fp:
         fp.write(py_container_script)
