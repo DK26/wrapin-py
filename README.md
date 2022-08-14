@@ -2,38 +2,64 @@
 
 Wrap a binary executable file in a Python file and delegate python calls to that binary, enabling the usage of a compiled executable in a sandboxed or jailed execution environment for a script.
 
-## Motivation
-
-This project serves me as a Proof-of-Concept, and hopefully, scripting directly in the Rust programming language, will be a thing of the future for closed systems.
-
-It is most common for interrupted languages to be used as scripting languages within closed source products, running under a very limited sandbox or jailed with mostly being able to only use the base libraries of the language. One such language is one of my favorites: __*Python*__.
-
-For most use cases, Python is just powerful and easy enough for about any task and would work just fine.
-
-As I worked with the Rust programming language recently, I realized it has some big advantages that could serve me when my projects (scripts or otherwise) get long and complex with their logical flows. An advantage well felt when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed, new generation of a low-level language (like C\C++), could serve me for complex script designs with its powerful compiler as a guardian over my code correctness.
-
-## Advantages of a low-level language binary
-
-1. __*Single file*__, independent of any runtime environment, that can embed third-party libraries in a single file and offer APIs that are not part of the core Python libraries that are provided by the sandboxed environment  
-   - __Caveat:__ This works as long as your binary does not try to use dynamically linked APIs which may be restricted or missing in the sandboxed environment (e.g. `cmake` or native `OpenSSL`).
-
-2. Using a strongly typed, statically compiled programming language for complex projects, that is also highly performant.
-
-3. Can override limitations over existing APIs causes by the sandboxed environment. e.g. Avoid dependencies that depend on dynamically linked APIs which may not be available in that environment, such as failing to use the TLS protocol in an HTTP request due to its external dependency on the native OpenSSL API which may not be available in that environment
+`wrapin-py` is cross-platform and supporting both Python 2 and Python 3 environments.
 
 ## Liability
 
 __*Try at your own risk!*__  
 Although this "hack" does not attempt to do anything that requires high-privilege, neither does it use any non-conventional privilege-escalation technics, I cannot guarantee that it will work on your system or that it will not break anything.
 
+---
+
+## But, Why?
+
+<details>
+<summary>Project Motivations (click to expand)</summary>
+
+## Project Motivations
+
+This project serves me as a Proof-of-Concept, and hopefully, scripting directly in the Rust programming language, will be a thing of the future for closed systems.
+
+It is most common for interrupted languages to be used as scripting languages within closed source products, running under a very limited sandbox or jailed environment, which if works at best, is able to allow you the use of the base libraries of the language and maybe a few selected third-parties (e.g. `requests`). Some environments are still using Python 2 and do not support more advanced IDE features that help you manage the project, such as annotations.
+
+For most use cases, Python is just powerful and easy enough for about any task and would work just fine. But for some more advanced use-cases, an alternative may fit better.
+
+As I worked with the Rust programming language recently, I realized it has some big advantages that could serve me well when my projects (scripts or otherwise) get long and complex with their logical flows. An advantage well noticed when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed and a new generation of a low-level language (comparable to C\C++ steroids), could serve me for complex script designs while using its powerful compiler as a guardian to watch over my coding correctness.
+
+</details>
+
+<details>
+<summary>Advantages of a Self-Contained low-level Binary (click to expand)</summary>
+
+## Advantages of a Self-Contained low-level Binary
+
+1. __*Single file*__, independent of any runtime environment, can be embedded with third-party libraries while offering more advanced APIs, such that are not part of the core Python libraries which are provided by default in the sandboxed environment  
+   - __Caveat:__ In restricted, stripped environments, this can work as long as your binary does not try to use dynamically linked APIs which may be restricted or completely missing in that sandboxed environment (e.g. `cmake` or native `OpenSSL`).
+
+2. Using a strongly typed, statically compiled programming language for complex projects, that is also highly performant, can help find problems long before they reach production, especially for rare, invisible, cases.
+
+3. Can provide you with bare-metal performance for heavy calculations.
+
+</details>
+
+---
+
 ## Usage
+
+How to use the `wrapin.py` tool.
+
+<details>
+<summary>Help (click to expand)</summary>
+
+### Help
+
+You can find the most updated available command list in the help menu, using the `--help` switch.
 
 ```bash
 python wrapin.py --help
 ```
 
-<details>
-<summary>Output (click to expand)</summary>
+#### Output
 
 ```text
 usage: wrapin.py [-h] [-o OUTPUT] [-t TARGET] binary_file
@@ -56,18 +82,26 @@ options:
 
 </details>  
 
+<details>
+<summary>Wrap an Executable (click to expand)</summary>
+
 ### Wrap an Executable
 
 ```powershell
 python wrapin.py hello_world_windows.exe
 ```
 
-Will produce the next file: `hello_world_windows.exe.wrapped.py`
+Will produce the wrapper file: `hello_world_windows.exe.wrapped.py`
 
-📦CURRENT DIRECTORY  
+📦  
  ┣ 📜hello_world_windows.exe  
- ┣ 📜hello_world_windows.exe.wrapped.py  
+ ┣ 📜hello_world_windows.exe.wrapped.py  <---  
  ┗ 📜wrapin.py
+
+</details>  
+
+<details>
+<summary>Wrap an Executable for a different Architecture (click to expand)</summary>
 
 ### Wrap an Executable for a different Architecture
 
@@ -77,7 +111,12 @@ The next is an example of wrapping a *Linux* binary file from a *Windows* enviro
 python wrapin.py hello_world_linux.bin --target=linux
 ```
 
-## Methodology
+</details>
+
+<details>
+<summary>Logical Flow Graph (click to expand)</summary>
+
+## Logical Flow Graph
 
 ### Wrap & Upload the Executable
 
@@ -108,23 +147,22 @@ graph LR;
 
 The wrapped file is unwrapped into the running user's home directory under a new directory called `unwrapped`. This is done to make sure that lack of permissions will not pose a problem.
 
-## Tested On
-
-*This list only indicates what has been tested and proven to work so far and does not reflect possible usability for other systems*
-
-- QRadar Community Edition 7.3.3 (`Custom Actions`)
-  - Rust binary file, compiled for  `i686-unknown-linux-musl`
+</details>
 
 ---
 
 ## Language Guides
+
+Tips and tricks for specific programming languages to create a proper binary file to wrap.
+
+Select the language of choice:
 
 <details>
 <summary>Rust (click to expand)</summary>
 
 ### Optimize for Size
 
-Unless you have some very specific requirements, it is recommended for you to optimize your binary for size for the context of scripting.
+Unless you have some very specific requirements, it is recommended for you to optimize your binary for size in the context of scripting.
 
 - Configure `Cargo.toml` to optimize the `--release` build for size  
   - Use `panic = 'abort'` to exit on panic rather than unwind, unless you are catching unwind to recover from panics in your use case
@@ -195,6 +233,13 @@ cargo build --target=i686-unknown-linux-musl --release
 </details>
 
 ---
+## Test List
+
+*This list only indicates what has been tested and proven to work so far and does not reflect possible usability for other systems*
+
+- QRadar Community Edition 7.3.3 (`Custom Actions`)
+  - Rust binary file, compiled for  `i686-unknown-linux-musl`
+
 
 ## Contribution  
 
