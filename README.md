@@ -248,4 +248,4 @@ Feel free to contribute in anyway you like:
 
 This project and any direct contribution to it are licensed under the MIT license.
 
-Refer to the `LICENSE` file in this repository for more details.
+Please refer to the `LICENSE` file in this repository for more information.
