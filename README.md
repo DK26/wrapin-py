@@ -115,6 +115,8 @@ The wrapped file is unwrapped into the running user's home directory under a new
 - QRadar Community Edition 7.3.3 (`Custom Actions`)
   - Rust binary file, compiled for  `i686-unknown-linux-musl`
 
+---
+
 ## Language Guides
 
 <details>
@@ -142,6 +144,8 @@ Add a 32-bit target to reduce the binary size, unless you are expected to use mo
 
 - If you insist on a 64-bit binary, replace all `i686` values with `x86_64`
 
+---
+
 <details>
 <summary>Windows 32-bit (click to expand)</summary>
 
@@ -158,6 +162,8 @@ cargo build --target=i686-pc-windows-msvc --release
 ```
 
 </details>
+
+---
 
 <details>
 <summary>Linux 32-bit (click to expand)</summary>
@@ -188,6 +194,8 @@ cargo build --target=i686-unknown-linux-musl --release
 
 </details>
 
+---
+
 ## Contribution  
 
 Tried it on a system that is not listed here and it worked?  
@@ -197,7 +205,7 @@ Feel free to add that system to the list in a pull request!
 Feel free to contribute in anyway you like:
 
 - Discussions  
-- Issues (Report bugs, mistakes, request features, etc.)  
+- Issues (Report bugs, mistakes, feature requests, etc.)  
 - Pull Requests  
 - Blog Posts  
 - Guides  
