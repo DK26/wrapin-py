@@ -39,9 +39,9 @@ As I worked with the Rust programming language recently, I realized it has some 
 1. __*Single file*__, independent of any runtime environment, can be embedded with third-party libraries while offering more advanced APIs, such that are not part of the core Python libraries which are provided by default in the sandboxed environment  
    - __Caveat:__ In restricted, stripped environments, this can work as long as your binary does not try to use dynamically linked APIs which may be restricted or completely missing in that sandboxed environment (e.g. `cmake` or native `OpenSSL`).
 
-2. Using a strongly typed, statically compiled programming language for complex projects, that is also highly performant, can help find problems long before they reach production, especially for rare, invisible, cases.
+2. Written in a strongly typed, statically compiled programming language for a complex project, can detect potential problems at compile-time, long before they reach production, especially for the rare, "invisible" bug cases that camouflage themselves within tons of code so they can show up at the worse moment in production.
 
-3. Can provide you with bare-metal performance for heavy calculations.
+3. It can provide you with bare-metal performance for some heavy calculations.
 
 </details>
 
@@ -56,7 +56,7 @@ How to use the `wrapin.py` tool.
 
 ### Help
 
-You can find the most updated available command list in the help menu, using the `--help` switch.
+You can find the most updated command list in the help menu, using the `--help` switch.
 
 ```bash
 python wrapin.py --help
