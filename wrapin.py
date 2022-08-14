@@ -182,7 +182,7 @@ def equal_paths(path1, path2, *paths):
 def main():
 
     parser = argparse.ArgumentParser(description="Wrap a binary file into a Python file container to be used in "
-                                                 "scripting environments that are some what limited to Python and its "
+                                                 "the context of scripting environments that are some what limited to Python and its "
                                                  "core libraries.")
 
     parser.add_argument("binary_file", help="The binary file to be wrapped inside the Python file container.",
