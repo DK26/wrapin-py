@@ -2,7 +2,7 @@
 
 Pronounced: _Wrap-In-Pie_  
 
-Wraps an executable binary file in a Python source file and delegates calls to the wrapped binary, enabling the usage of a compiled executable in a sandboxed or jailed execution environment that is usually limited to a python script.
+Wraps an executable binary file inside a Python source file and delegates calls to the wrapped binary, enabling the usage of a compiled executable in a sandboxed or jailed execution environment that is usually limited to a python script.
 
 `wrapin-py` is cross-platform and supporting both Python 2 and Python 3 environments.
 
