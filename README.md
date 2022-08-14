@@ -96,7 +96,7 @@ Will produce the wrapper file: `hello_world_windows.exe.wrapped.py`
 
 📦 (Working directory)  
  ┣ 📜hello_world_windows.exe  
- ┣ 📜hello_world_windows.exe.wrapped.py  <---  
+ ┣ 📜hello_world_windows.exe.wrapped.py  <--  
  ┗ 📜wrapin.py
 
 - Upload the wrapper file as an automations script to your external system.
@@ -118,38 +118,22 @@ python wrapin.py hello_world_linux.bin --target=linux
 
 </details>
 
----
+<details>
+<summary>Logical Flow Graph (click to expand)</summary>
 
 ## Logical Flow Graph
 
 ### Wrap & Upload the Executable
 
-```mermaid
-graph LR;
-    EXEC[Executable File];
-    EXEC --> |Wrap| WRAPPED;
-    WRAPPED[Wrapped in '.py' file];
-    WRAPPED -->|Upload| SYSTEM;
-    SYSTEM[External System];
-```
+![Alt text](./assets/wrapping-diagram.svg)
 
 ### Auto-Unwrap & Delegate Script Calls
 
-```mermaid
-graph LR;
-    SYSTEM[External System];
-    SYSTEM --> |Calls| WRAPPED;
-    WRAPPED[Wrapping '.py' Script];
-    WRAPPED --> TEST;
-    TEST{Is Executable Unwrapped?};
-    TEST ==> |Yes| RUN_EXEC;
-    TEST --> |No| UNWRAP;
-    RUN_EXEC(Run Executable & Pass Arguments);
-    UNWRAP(Unwrap Executable);
-    UNWRAP ==> |Then| RUN_EXEC;
-```
+![Alt text](./assets/unwrapping-diagram.svg)
 
 - The wrapped file is unwrapped into a directory called `unwrapped` that is automatically created within the logged machine user's home directory (`~`). This is done to make sure that a lack of permissions will not pose a problem.
+
+</details>
 
 ---
 
@@ -235,13 +219,13 @@ cargo build --target=i686-unknown-linux-musl --release
 </details>
 
 ---
+
 ## Test List
 
 *This list only indicates what has been tested and proven to work so far and does not reflect possible usability for other systems*
 
 - QRadar Community Edition 7.3.3 (`Custom Actions`)
   - Rust binary file, compiled for  `i686-unknown-linux-musl`
-
 
 ## Contribution  
 
