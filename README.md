@@ -10,14 +10,16 @@ It is most common for interrupted languages to be used as scripting languages wi
 
 For most use cases, Python is just powerful and easy enough for about any task and would work just fine.
 
-As I worked with the Rust programming language recently, I realized it has some big advantages that could serve me when my projects (scripts or otherwise) get long and complex with their logical flows. An advantage well felt when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed, new generation of a low-level language (e.g. C\C++), could serve me for complex script designs with its powerful compiler as a guardian over my code correctness.
+As I worked with the Rust programming language recently, I realized it has some big advantages that could serve me when my projects (scripts or otherwise) get long and complex with their logical flows. An advantage well felt when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed, new generation of a low-level language (like C\C++), could serve me for complex script designs with its powerful compiler as a guardian over my code correctness.
 
 ## Advantages of a low-level language binary
 
 1. __*Single file*__, independent of any runtime environment, that can embed third-party libraries in a single file and offer APIs that are not part of the core Python libraries that are provided by the sandboxed environment  
-   - __Caveat:__ Works as long as your binary does not try to use dynamically linked APIs which may be restricted or missing in the sandboxed environment (e.g. `cmake` or native `OpenSSL`).
+   - __Caveat:__ This works as long as your binary does not try to use dynamically linked APIs which may be restricted or missing in the sandboxed environment (e.g. `cmake` or native `OpenSSL`).
 
 2. Using a strongly typed, statically compiled programming language for complex projects, that is also highly performant.
+
+3. Can override limitations over existing APIs causes by the sandboxed environment. e.g. Avoid dependencies that depend on dynamically linked APIs which may not be available in that environment, such as failing to use the TLS protocol in an HTTP request due to its external dependency on the native OpenSSL API which may not be available in that environment
 
 ## Liability
 
