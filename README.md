@@ -6,7 +6,8 @@ Wrap a binary executable file in a Python file and delegate python calls to that
 
 ## Liability
 
-__*Try at your own risk!*__  
+### __*Try at your own risk!*__  
+
 Although this "hack" does not attempt to do anything that requires high-privilege, neither does it use any non-conventional privilege-escalation technics, I cannot guarantee that it will work on your system or that it will not break anything.
 
 ---
@@ -98,6 +99,8 @@ Will produce the wrapper file: `hello_world_windows.exe.wrapped.py`
  ┣ 📜hello_world_windows.exe.wrapped.py  <---  
  ┗ 📜wrapin.py
 
+- Upload the wrapper file as an automations script to your external system.
+
 </details>  
 
 <details>
@@ -110,6 +113,8 @@ The next is an example of wrapping a *Linux* binary file from a *Windows* enviro
 ```powershell
 python wrapin.py hello_world_linux.bin --target=linux
 ```
+
+- Providing a wrong platform, e.g. running the wrapper file in a Windows environment while it is configured for Linux, will simply exit with an error, without trying to run the wrapped executable.  
 
 </details>
 
@@ -145,7 +150,7 @@ graph LR;
     UNWRAP ==> |Then| RUN_EXEC;
 ```
 
-The wrapped file is unwrapped into the running user's home directory under a new directory called `unwrapped`. This is done to make sure that lack of permissions will not pose a problem.
+- The wrapped file is unwrapped into a directory called `unwrapped` that is automatically created within the logged machine user's home directory (`~`). This is done to make sure that a lack of permissions will not pose a problem.
 
 </details>
 
