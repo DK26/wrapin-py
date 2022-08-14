@@ -94,7 +94,7 @@ python wrapin.py hello_world_windows.exe
 
 Will produce the wrapper file: `hello_world_windows.exe.wrapped.py`
 
-📦  
+📦 (Working directory)  
  ┣ 📜hello_world_windows.exe  
  ┣ 📜hello_world_windows.exe.wrapped.py  <---  
  ┗ 📜wrapin.py
