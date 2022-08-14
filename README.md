@@ -118,8 +118,7 @@ python wrapin.py hello_world_linux.bin --target=linux
 
 </details>
 
-<details>
-<summary>Logical Flow Graph (click to expand)</summary>
+---
 
 ## Logical Flow Graph
 
@@ -151,8 +150,6 @@ graph LR;
 ```
 
 - The wrapped file is unwrapped into a directory called `unwrapped` that is automatically created within the logged machine user's home directory (`~`). This is done to make sure that a lack of permissions will not pose a problem.
-
-</details>
 
 ---
 
