@@ -60,13 +60,13 @@ python wrapin.py hello_world_linux.bin --target=linux
 
 ## Motivation
 
+This project serves me as a Proof-of-Concept, and hopefully, scripting directly in the Rust programming language, will be a thing of the future for closed systems.
+
 It is most common for interrupted languages to be used as scripting languages within closed source products, running under a very limited sandbox or jailed with mostly being able to only use the base libraries of the language. One such language is one of my favorites: Python.
 
-For most use cases, Python is just powerful and easy enough for about any task and should be just fine.
+For most use cases, Python is just powerful and easy enough for about any task and would be just fine.
 
-As I learned and worked with the Rust programming language recently, I realized it has some big advantages that could serve me when my projects (scripts or otherwise) get long and complicated with their logical flows. An advantage well felt when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed, new generation of a low-level language (e.g. C\C++), could serve me for complex script designs, kinda take us back to the days of scripting with the C language when it used to be called "Super Scripting" only this time, armed with the powerful Rust compiler as a guardian over my code correctness.
-
-This project serves me as a Proof-of-Concept, and hopefully, scripting directly in the Rust programming language, will be a thing of the future for such closed systems.
+As I learned and worked with the Rust programming language recently, I realized it has some big advantages that could serve me when my projects (scripts or otherwise) get long and complicated with their logical flows. An advantage well felt when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed, new generation of a low-level language (e.g. C\C++), could serve me for complex script designs, kinda take us back to the days of scripting with the C language when it used to be called "superscripts" only this time, armed with the modern and powerful Rust compiler as a guardian over my code correctness.
 
 ## Advantages
 

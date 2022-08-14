@@ -234,7 +234,7 @@ def main():
         py_container_script_file = file_path + '.wrapped.py'
 
     if equal_paths(wrapper_name, py_container_script_file):
-        print("Failed: Attempted to wrap the wrapper tool itself.")
+        print("Failed: Attempted to output to and overwrite the tool itself.")
         exit(-1)
 
     with open(py_container_script_file, 'wb') as fp:
