@@ -93,8 +93,8 @@ graph LR;
 ```mermaid
 graph LR;
     SYSTEM[External System];
-    SYSTEM --> |Call| WRAPPED;
-    WRAPPED['EXECUTABLE.wrapped.py'];
+    SYSTEM --> |Calls| WRAPPED;
+    WRAPPED[Wrapping '.py' Script];
     WRAPPED --> TEST;
     TEST{Is Executable Unwrapped?};
     TEST ==> |Yes| RUN_EXEC;
