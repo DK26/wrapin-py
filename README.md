@@ -65,22 +65,20 @@ python wrapin.py --help
 #### Output
 
 ```text
-usage: wrapin.py [-h] [-o OUTPUT] [-t TARGET] binary_file
+usage: wrapin.py [-h] [-o OUTPUT] [-t TARGET] executable
 
-Wrap a binary file into a Python file container to be used in 
-the context of scripting environments that are some what limited to Python and its core libraries.
+Wraps an executable binary file inside a Python source file, to be used as a script in a closed system.
 
 positional arguments:
-  binary_file           The binary file to be wrapped inside the Python file container.
+  executable            The executable binary file to be wrapped inside a Python source file.
 
 options:
   -h, --help            show this help message and exit
   -o OUTPUT, --output OUTPUT
-                        Specify the output path for the Python container file.
+                        Specify the output path for the Python source file.
   -t TARGET, --target TARGET
-                        Specify the target operating system for the binary file: `Windows`, `Linux` or `Darwin`. By
-                        default, the current operating system is selected. Mismatch of configurations with the wrapped
-                        file will cause a failure in execution and will exit with an error.
+                        Specify the target operating system for the executable file: `Windows`, `Linux` or `Darwin`. By default, the current operating system is selected.
+                        Mismatch of configurations with the wrapped file will cause a failure of execution and will exit with an error.
 ```
 
 </details>  
