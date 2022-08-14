@@ -136,7 +136,7 @@ lto = true
 opt-level = 'z' # Optimize for size
 ```
 
-### Building to 32-bit Targets Reduces Size
+### Building to 32-bit Targets (Reducing Size)
 
 Add a 32-bit target to reduce the binary size, unless you are expected to use more than 4 GB RAM or having some other limiting reason to do so.
 
