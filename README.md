@@ -96,7 +96,7 @@ Will produce the wrapper file: `hello_world_windows.exe.wrapped.py`
 
 📦 (Working directory)  
  ┣ 📜hello_world_windows.exe  
- ┣ 📜hello_world_windows.exe.wrapped.py  <--  
+ ┣ 📜hello_world_windows.exe.wrapped.py  👈  
  ┗ 📜wrapin.py
 
 - Upload the wrapper file as an automations script to your external system.
