@@ -136,9 +136,11 @@ lto = true
 opt-level = 'z' # Optimize for size
 ```
 
-### Build to 32-bit Targets, to further reduce Size
+### Building to 32-bit Targets Reduces Size
 
 Add a 32-bit target to reduce the binary size, unless you are expected to use more than 4 GB RAM or having some other limiting reason to do so.
+
+- If you insist on a 64-bit binary, replace all `i686` values with `x86_64`
 
 <details>
 <summary>Windows 32-bit (click to expand)</summary>
