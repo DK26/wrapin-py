@@ -106,9 +106,9 @@ Will produce the wrapper file: `hello_world_windows.exe.wrapped.py`
 </details>  
 
 <details>
-<summary>Wrap an Executable for a different Architecture (click to expand)</summary>
+<summary>Wrap an Executable to a different Architecture (click to expand)</summary>
 
-### Wrap an Executable for a different Architecture
+### Wrap an Executable to a different Architecture
 
 The next is an example of wrapping a *Linux* binary file from a *Windows* environment
 

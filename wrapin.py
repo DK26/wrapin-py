@@ -109,7 +109,7 @@ def main():
     all_args = sys.argv[1:]
 
     if Environment.PLATFORM != WrappedFile.TARGET_PLATFORM:
-        print("Failed: The binary targets the {} platform but you are running on the {} platform."
+        print("Failed: The executable targets the {} platform but you are running on the {} platform."
               .format(WrappedFile.TARGET_PLATFORM.title(), Environment.PLATFORM.title()))
         exit(-1)
 
@@ -181,20 +181,18 @@ def equal_paths(path1, path2, *paths):
 
 def main():
 
-    parser = argparse.ArgumentParser(description="Wrap a binary file into a Python file container to be used in "
-                                                 "the context of scripting environments that are some what limited to Python and its "
-                                                 "core libraries.")
+    parser = argparse.ArgumentParser(description="Wraps an executable binary file inside a Python source file, to be used as a script in a closed system.")
 
-    parser.add_argument("binary_file", help="The binary file to be wrapped inside the Python file container.",
+    parser.add_argument("executable", help="The executable binary file to be wrapped inside a Python source file.",
                         type=str)
 
-    parser.add_argument("-o", "--output", help="Specify the output path for the Python container file.",
+    parser.add_argument("-o", "--output", help="Specify the output path for the Python source file.",
                         type=str, required=False)
 
     parser.add_argument("-t", "--target",
-                        help="Specify the target operating system for the binary file: `Windows`, `Linux` or `Darwin`. "
+                        help="Specify the target operating system for the executable file: `Windows`, `Linux` or `Darwin`. "
                              "By default, the current operating system is selected. Mismatch of configurations with "
-                             "the wrapped file will cause a failure in execution and will exit with an error.",
+                             "the wrapped file will cause a failure of execution and will exit with an error.",
                         type=str, required=False)
 
     args = parser.parse_args()
@@ -205,7 +203,7 @@ def main():
         target_platform = Environment.PLATFORM
 
     wrapper_name = os.path.basename(__file__)
-    file_path = args.binary_file
+    file_path = args.executable
 
     payload, checksum = wrap_file(file_path)
 
