@@ -217,10 +217,8 @@ def main():
         .replace("{WRAPPED_FILE__CHECKSUM_TYPE}", "sha1")
         .replace("{WRAPPED_FILE__FILE_NAME}", os.path.basename(file_path))
         .replace("{WRAPPED_FILE__TARGET_PLATFORM}", target_platform)
-        .replace("{WRAPPED_FILE__UTC_CREATION_DATETIME}",
-                 creation_time(file_path).isoformat())
-        .replace("{WRAPPED_FILE__UTC_WRAP_DATETIME}",
-                 datetime.utcnow().isoformat())
+        .replace("{WRAPPED_FILE__UTC_CREATION_DATETIME}", creation_time(file_path).isoformat())
+        .replace("{WRAPPED_FILE__UTC_WRAP_DATETIME}", datetime.utcnow().isoformat())
         .replace("{WRAPPED_FILE__BASE64}", payload)
     )
 
