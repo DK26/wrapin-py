@@ -104,7 +104,7 @@ graph LR;
     UNWRAP ==> |Then| RUN_EXEC;
 ```
 
-The wrapped file is unwrapped to the running user's home directory under a new directory called `unwrapped`. This is done to make sure that permissions will not pose a problem.
+The wrapped file is unwrapped into the running user's home directory under a new directory called `unwrapped`. This is done to make sure that permissions will not pose a problem.
 
 ## Tested On
 
