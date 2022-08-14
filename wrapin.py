@@ -210,18 +210,19 @@ def main():
     if Environment.PYTHON_VERSION == 3:
         payload = str(payload, "utf-8")
 
-    py_container_script = PY_CONTAINER_TEMPLATE
-
-    py_container_script = py_container_script.replace("{WRAPPER_NAME}", wrapper_name)
-    py_container_script = py_container_script.replace("{WRAPPED_FILE__CHECKSUM}", checksum)
-    py_container_script = py_container_script.replace("{WRAPPED_FILE__CHECKSUM_TYPE}", "sha1")
-    py_container_script = py_container_script.replace("{WRAPPED_FILE__FILE_NAME}", os.path.basename(file_path))
-    py_container_script = py_container_script.replace("{WRAPPED_FILE__TARGET_PLATFORM}", target_platform)
-    py_container_script = py_container_script.replace("{WRAPPED_FILE__UTC_CREATION_DATETIME}",
-                                                      creation_time(file_path).isoformat())
-    py_container_script = py_container_script.replace("{WRAPPED_FILE__UTC_WRAP_DATETIME}",
-                                                      datetime.utcnow().isoformat())
-    py_container_script = py_container_script.replace("{WRAPPED_FILE__BASE64}", payload)
+    py_container_script = (
+        PY_CONTAINER_TEMPLATE
+        .replace("{WRAPPER_NAME}", wrapper_name)
+        .replace("{WRAPPED_FILE__CHECKSUM}", checksum)
+        .replace("{WRAPPED_FILE__CHECKSUM_TYPE}", "sha1")
+        .replace("{WRAPPED_FILE__FILE_NAME}", os.path.basename(file_path))
+        .replace("{WRAPPED_FILE__TARGET_PLATFORM}", target_platform)
+        .replace("{WRAPPED_FILE__UTC_CREATION_DATETIME}",
+                 creation_time(file_path).isoformat())
+        .replace("{WRAPPED_FILE__UTC_WRAP_DATETIME}",
+                 datetime.utcnow().isoformat())
+        .replace("{WRAPPED_FILE__BASE64}", payload)
+    )
 
     if Environment.PYTHON_VERSION == 3:
         py_container_script = bytes(py_container_script, "utf-8")
