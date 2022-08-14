@@ -81,9 +81,9 @@ As I learned and worked with the Rust programming language recently, I realized 
 
 ```mermaid
 graph LR;
-    EXEC[Executable];
+    EXEC[Executable File];
     EXEC --> |Wrap| WRAPPED;
-    WRAPPED[Output: 'EXECUTABLE.wrapped.py'];
+    WRAPPED[Wrapped in '.py' file];
     WRAPPED -->|Upload| SYSTEM;
     SYSTEM[External System];
 ```
