@@ -21,13 +21,13 @@ Although this "hack" does not attempt to do anything that requires high-privileg
 
 ## Project Motivations
 
-This project serves me as a Proof-of-Concept, and hopefully, scripting directly in the Rust programming language, will be a thing of the future for closed systems.
+This project serves me as a research and a Proof-of-Concept, about the idea of using Rust as a scripting language for platforms that usually support scripting with interpreted languages. Hopefully, scripting directly in the Rust programming language, will be a thing of the future for closed systems as well.
 
-It is most common for interrupted languages to be used as scripting languages within closed source products, running under a very limited sandbox or jailed environment, which if works at best, is able to allow you the use of the base libraries of the language and maybe a few selected third-parties (e.g. `requests`). Some environments are still using Python 2 and do not support more advanced IDE features that help you manage the project, such as annotations.
+Languages used for scripting within closed source products are usually running inside a very limited sandbox or jailed environment, which at best, is able to offer us usage of the base libraries of the language or maybe even a few selected third-parties (e.g. `requests`). Also, some environments are still using Python 2 and do not support more advanced features, such as Python annotations that can help reduce errors (when used correctly) by guiding our IDE to catch misuse mistakes early on.
 
-For most use cases, Python is just powerful and easy enough for about any task and would work just fine. But for some more advanced use-cases, an alternative may fit better.
+For the most part, Python is still powerful, easy, and good enough for about any scripting task. But for some more advanced use case scenarios, when logic can get real complex with advanced features, an alternative may fit better.
 
-As I worked with the Rust programming language recently, I realized it has some big advantages that could serve me well when my projects (scripts or otherwise) get long and complex with their logical flows. An advantage well noticed when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed and a new generation of a low-level language (comparable to C\C++ steroids), could serve me for complex script designs while using its powerful compiler as a guardian to watch over my coding correctness.
+As I worked with the Rust programming language recently, I realized it has some big advantages that could serve me well when my projects (scripts or otherwise) get long and complex with their logical flows. An advantage well noticed when returning to an old Python project (even when it has a good or even a great design). This ultimately lead me to wonder if using Rust, a statically-compiled, strongly-typed and a new generation of a low-level language (comparable to C\C++ on steroids), could serve me for a complex script design while using its powerful compiler as an excellent guarantee for my code correctness. Modifying and maintaining a complex Rust program gets me a peace of mind as I know that if it compiles, it is correct.
 
 </details>
 
