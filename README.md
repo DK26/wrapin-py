@@ -83,12 +83,12 @@ As I learned and worked with the Rust programming language recently, I realized 
 graph LR;
     EXEC[Executable];
     EXEC --> |Wrap| WRAPPED;
-    WRAPPED['EXECUTABLE.wrapped.py'];
+    WRAPPED[Output: 'EXECUTABLE.wrapped.py'];
     WRAPPED -->|Upload| SYSTEM;
     SYSTEM[External System];
 ```
 
-### Unwrap & Delegate Script Calls
+### Auto-Unwrap & Delegate Script Calls
 
 ```mermaid
 graph LR;
@@ -101,14 +101,14 @@ graph LR;
     TEST --> |No| UNWRAP;
     RUN_EXEC(Run Executable & Pass Arguments);
     UNWRAP(Unwrap Executable);
-    UNWRAP --> RUN_EXEC;
+    UNWRAP ==> |Then| RUN_EXEC;
 ```
 
-The wrapped file is unwrapped in the running user's home directory under a new directory called `unwrapped`, to make sure that permissions will not be a problem.
+The wrapped file is unwrapped to the running user's home directory under a new directory called `unwrapped`. This is done to make sure that permissions will not pose a problem.
 
 ## Tested On
 
-*This list only indicates what has been tested and proven to work so far and does not limit any other possibilities*
+*This list only indicates what has been tested and proven to work so far and does not reflect possible usability for other systems*
 
 - QRadar Community Edition 7.3.3 (`Custom Actions`)
   - Rust binary file, compiled for  `i686-unknown-linux-musl`
