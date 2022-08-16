@@ -109,7 +109,7 @@ def main():
     all_args = sys.argv[1:]
 
     if Environment.PLATFORM != WrappedFile.TARGET_PLATFORM:
-        sys.stderr.write("Failed: The executable targets the {} platform but you are running on the {} platform.\n"
+        sys.stderr.write("Failed: The executable targets the {} platform but you are running on the {} platform.\r\n"
                          .format(WrappedFile.TARGET_PLATFORM.title(), Environment.PLATFORM.title()))
         exit(-1)
 
@@ -231,7 +231,7 @@ def main():
         py_container_script_file = file_path + '.wrapped.py'
 
     if equal_paths(wrapper_name, py_container_script_file):
-        sys.stderr.write("Failed: Attempted to overwrite the tool itself.\n")
+        sys.stderr.write("Failed: Attempted to overwrite the tool itself.\r\n")
         exit(-1)
 
     with open(py_container_script_file, 'wb') as fp:
