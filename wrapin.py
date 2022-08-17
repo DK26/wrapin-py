@@ -181,7 +181,8 @@ def equal_paths(path1, path2, *paths):
 
 def main():
 
-    parser = argparse.ArgumentParser(description="Wraps an executable binary file inside a Python source file, to be used as a script in a closed system.")
+    parser = argparse.ArgumentParser(description="Wraps an executable binary file inside a Python source file, "
+                                                 "to be used as a script in a closed system.")
 
     parser.add_argument("executable", help="The executable binary file to be wrapped inside a Python source file.",
                         type=str)
@@ -190,9 +191,10 @@ def main():
                         type=str, required=False)
 
     parser.add_argument("-t", "--target",
-                        help="Specify the target operating system for the executable file: `Windows`, `Linux` or `Darwin`. "
-                             "By default, the current operating system is selected. Mismatch of configurations with "
-                             "the wrapped file will cause a failure of execution and will exit with an error.",
+                        help="Specify the target operating system for the executable file: `Windows`, `Linux` or "
+                             "`Darwin`. By default, the current operating system is selected. Mismatch of "
+                             "configurations with the wrapped file will cause a failure of execution and will exit "
+                             "with an error.",
                         type=str, required=False)
 
     args = parser.parse_args()
