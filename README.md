@@ -10,7 +10,7 @@ Wraps an executable binary file inside a Python source file and delegates calls 
 
 ### __*Try at your own risk!*__  
 
-Although this "hack" does not attempt to do anything that requires high-privilege, neither does it use any non-conventional privilege-escalation technics, I cannot guarantee that it will work on your system or that it will not break anything.
+Although this "hack" does not attempt to do anything that requires high-privilege, neither does it use any non-conventional privilege-escalation technics, I cannot guarantee that it will work in your system's environment or that it will not break or violate anything.
 
 ---
 
@@ -222,7 +222,7 @@ cargo build --target=i686-unknown-linux-musl --release
 
 ## Test List
 
-*This list only indicates what has been tested and proven to work so far and does not reflect possible usability for other systems*
+*This list only indicate what has been tested and proven to work so far and does not reflect possible usability for other systems*
 
 - QRadar Community Edition 7.3.3 (`Custom Actions`)
   - Rust binary file, compiled for  `i686-unknown-linux-musl`
