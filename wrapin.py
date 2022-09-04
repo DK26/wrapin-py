@@ -170,11 +170,9 @@ def creation_time(file_path):
 
 def equal_paths(path1, path2, *paths):
     paths = (path2,) + paths
-    prev = os.path.abspath(os.path.normpath(os.path.normcase(path1)))
+    cmp_path = os.path.abspath(os.path.normpath(os.path.normcase(path1)))
     for path in paths:
-        if os.path.abspath(os.path.normpath(os.path.normcase(path))) == prev:
-            prev = path
-        else:
+        if not os.path.abspath(os.path.normpath(os.path.normcase(path))) == cmp_path:
             return False
     return True
 
