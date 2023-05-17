@@ -157,7 +157,7 @@ Unless you have some very specific requirements, it is recommended for you to op
 [profile.release]
 panic = 'abort'
 codegen-units = 1
-incremental = true
+incremental = false
 lto = true
 opt-level = 'z' # Optimize for size
 ```
