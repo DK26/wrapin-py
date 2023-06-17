@@ -65,7 +65,7 @@ python wrapin.py --help
 #### Output
 
 ```text
-usage: wrapin.py [-h] [-o OUTPUT] [-t TARGET] executable
+usage: wrapin.py [-h] [-o OUTPUT] [-t TARGET] [-e [ENV ...]] executable
 
 Wraps an executable binary file inside a Python source file, to be used as a script in a closed system.
 
@@ -77,8 +77,11 @@ options:
   -o OUTPUT, --output OUTPUT
                         Specify the output path for the Python source file.
   -t TARGET, --target TARGET
-                        Specify the target operating system for the executable file: `Windows`, `Linux` or `Darwin`. By default, the current operating system is selected.
-                        Mismatch of configurations with the wrapped file will cause a failure of execution and will exit with an error.
+                        Specify the target operating system for the executable file: `Windows`, `Linux` or `Darwin`. By default, the current
+                        operating system is selected. Mismatch of configurations with the wrapped file will cause a failure of execution and will     
+                        exit with an error.
+  -e [ENV ...], --env [ENV ...]
+                        Environment variables to be passed to the executable. Format: KEY=VALUE
 ```
 
 </details>  
