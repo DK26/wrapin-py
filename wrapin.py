@@ -172,7 +172,7 @@ def creation_time(file_path):
     else:
         ctime = os.stat(file_path).st_birthtime
 
-    return datetime.fromtimestamp(ctime)
+    return datetime.utcfromtimestamp(ctime)
 
 
 def equal_paths(path1, path2, *paths):
