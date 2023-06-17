@@ -62,7 +62,7 @@ class Environment(object):
     Metadata about the running environment.
     """
     PYTHON_VERSION = sys.version_info[0]
-    PLATFORM = platform.system().lower()
+    PLATFORM = platform.system().title()
 
 
 class WrappedFile(object):
@@ -110,7 +110,7 @@ def main():
 
     if Environment.PLATFORM != WrappedFile.TARGET_PLATFORM:
         sys.stderr.write("Failed: The executable targets the {} platform but you are running on the {} platform.\r\n"
-                         .format(WrappedFile.TARGET_PLATFORM.title(), Environment.PLATFORM.title()))
+                         .format(WrappedFile.TARGET_PLATFORM, Environment.PLATFORM))
         exit(-1)
 
     unwrap_directory = os.path.join(os.path.expanduser("~"), "unwrapped")
@@ -127,7 +127,7 @@ def main():
 
     run_args = [unwrap_file_path] + all_args
 
-    if Environment.PLATFORM != "windows":
+    if Environment.PLATFORM != "Windows":
         run_args[0] = '.' + run_args[0]
 
     subprocess.call(run_args, shell=False)
@@ -141,7 +141,7 @@ if __name__ == '__main__':
 
 class Environment(object):
     PYTHON_VERSION = sys.version_info[0]
-    PLATFORM = platform.system().lower()
+    PLATFORM = platform.system().title()
 
 
 def wrap_file(file_path):
@@ -160,7 +160,7 @@ def wrap_file(file_path):
 
 
 def creation_time(file_path):
-    if Environment.PLATFORM == "windows":
+    if Environment.PLATFORM == "Windows":
         ctime = os.path.getctime(file_path)
     else:
         ctime = os.stat(file_path).st_birthtime
@@ -198,7 +198,7 @@ def main():
     args = parser.parse_args()
 
     if args.target:
-        target_platform = args.target
+        target_platform = args.target.title()
     else:
         target_platform = Environment.PLATFORM
 
