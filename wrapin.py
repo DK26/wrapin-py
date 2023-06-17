@@ -23,6 +23,7 @@ import os
 import base64
 import zlib
 import platform
+import json
 from datetime import datetime
 
 PY_CONTAINER_TEMPLATE = r'''# MIT License
@@ -56,7 +57,13 @@ import os.path
 import platform
 import stat
 
+# Get all existing environment variables
+ENV_VARS = os.environ.copy()
 
+# Add your own environment variables manually
+ENV_VARS.update({WRAPPED_FILE__ENV_VARS})
+
+    
 class Environment(object):
     """
     Metadata about the running environment.
@@ -130,7 +137,7 @@ def main():
     if Environment.PLATFORM != "Windows":
         run_args[0] = '.' + run_args[0]
 
-    subprocess.call(run_args, shell=False)
+    subprocess.call(run_args, shell=False, env=ENV_VARS)
 
 
 if __name__ == '__main__':
@@ -172,8 +179,11 @@ def equal_paths(path1, path2, *paths):
     paths = (path2,) + paths
     cmp_path = os.path.abspath(os.path.normpath(os.path.normcase(path1)))
 
-    return all(cmp_path == os.path.abspath(os.path.normpath(os.path.normcase(path))) for path in paths)
+    return all(cmp_path == os.path.abspath(os.path.normpath(os.path.normcase(path)))
+               for path in paths)
 
+
+# def build_dict()
 
 def main():
 
@@ -193,12 +203,23 @@ def main():
                              "with an error.",
                         type=str, required=False)
 
+    parser.add_argument("-e", "--env",
+                        help="Environment variables to be passed to the executable. Format: KEY=VALUE",
+                        type=str, required=False, nargs='*')
+
     args = parser.parse_args()
 
     if args.target:
         target_platform = args.target.title()
     else:
         target_platform = Environment.PLATFORM
+
+    env_vars = args.env if args.env else []
+    env_vars_str = json.dumps((dict(var.split('=', 1) for var in env_vars)), indent=4)
+
+    # If no additional environment variables were provided, at least make it comfortable for manual editing
+    if env_vars_str == "{}":
+        env_vars_str = "{\n    \n}"
 
     wrapper_name = os.path.basename(__file__)
     file_path = args.executable
@@ -218,6 +239,7 @@ def main():
         .replace("{WRAPPED_FILE__UTC_CREATION_DATETIME}", creation_time(file_path).isoformat())
         .replace("{WRAPPED_FILE__UTC_WRAP_DATETIME}", datetime.utcnow().isoformat())
         .replace("{WRAPPED_FILE__BASE64}", payload)
+        .replace("{WRAPPED_FILE__ENV_VARS}", env_vars_str)
     )
 
     if Environment.PYTHON_VERSION == 3:
