@@ -247,8 +247,8 @@ def main():
         .replace("{WRAPPED_FILE__TARGET_PLATFORM}", target_platform)
         .replace("{WRAPPED_FILE__UTC_CREATION_DATETIME}", creation_time(file_path).isoformat())
         .replace("{WRAPPED_FILE__UTC_WRAP_DATETIME}", datetime.utcnow().isoformat())
-        .replace("{WRAPPED_FILE__BASE64}", payload)
         .replace("{WRAPPED_FILE__ENV_VARS}", build_env_vars(args.env))
+        .replace("{WRAPPED_FILE__BASE64}", payload)
     )
 
     if Environment.PYTHON_VERSION == 3:
