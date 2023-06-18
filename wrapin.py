@@ -183,8 +183,6 @@ def equal_paths(path1, path2, *paths):
                for path in paths)
 
 
-# def build_dict()
-
 def main():
 
     parser = argparse.ArgumentParser(description="Wraps an executable binary file inside a Python source file, "
