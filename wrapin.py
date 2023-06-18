@@ -56,6 +56,7 @@ import zlib
 import os.path
 import platform
 import stat
+import time
 
 
 class Environment(object):
@@ -118,6 +119,9 @@ def checksum_file(file_path):
 
 
 def main():
+    start_time = time.time()
+    cold_start = False
+    
     all_args = sys.argv[1:]
 
     if Environment.PLATFORM != WrappedFile.TARGET_PLATFORM:
@@ -129,7 +133,7 @@ def main():
     unwrap_file_path = os.path.join(unwrap_directory, WrappedFile.FILE_NAME)
 
     if not os.path.isfile(unwrap_file_path) or not checksum_file(unwrap_file_path) == WrappedFile.CHECKSUM:
-
+        cold_start = True
         try:
             os.makedirs(unwrap_directory)
         except OSError as e:
@@ -142,7 +146,18 @@ def main():
     if Environment.PLATFORM != "Windows":
         run_args[0] = '.' + run_args[0]
 
+    exe_start = time.time()
     subprocess.call(run_args, shell=False, env=WrappedFile.ENV_VARS)
+    end_time = time.time()
+    
+    print("\n\n------------Benchmarks-------------")
+    if cold_start:
+        print("start: cold")
+    else:
+        print("start: warm")
+
+    print("script runtime: {:.3f} ms".format((end_time - start_time) * 1000))
+    print("exe runtime: {:.3f} ms".format((end_time - exe_start) * 1000))
 
 
 if __name__ == '__main__':
