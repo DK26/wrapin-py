@@ -155,7 +155,6 @@ class Environment(object):
 
 
 def wrap_file(file_path):
-
     with open(file_path, 'rb') as fp:
         file_data = fp.read()
 
@@ -187,7 +186,6 @@ def equal_paths(path1, path2, *paths):
 
 
 def build_env_vars(vars):
-    
     env_vars = vars if vars else []
     env_vars_str = json.dumps((dict(var.split('=', 1) for var in env_vars)), indent=8)
 
@@ -201,8 +199,8 @@ def build_env_vars(vars):
 
     return env_vars_str
 
-def main():
 
+def main():
     parser = argparse.ArgumentParser(description="Wraps an executable binary file inside a Python source file, "
                                                  "to be used as a script in a closed system.")
 
