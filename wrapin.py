@@ -85,10 +85,12 @@ class WrappedFile(object):
     TARGET_PLATFORM = "{WRAPPED_FILE__TARGET_PLATFORM}"
     UTC_CREATION_DATETIME = "{WRAPPED_FILE__UTC_CREATION_DATETIME}"
     UTC_WRAP_DATETIME = "{WRAPPED_FILE__UTC_WRAP_DATETIME}"
-    BASE64 = "{WRAPPED_FILE__BASE64}"
     
     # Add your own environment variables manually
     ENV_VARS = merge_env_vars({WRAPPED_FILE__ENV_VARS})
+    
+    # Payload
+    BASE64 = "{WRAPPED_FILE__BASE64}"
 
 
 def unwrap_file(b64_data, file_name):
