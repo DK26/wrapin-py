@@ -57,19 +57,22 @@ import os.path
 import platform
 import stat
 
-# Get all existing environment variables
-ENV_VARS = os.environ.copy()
 
-# Add your own environment variables manually
-ENV_VARS.update({WRAPPED_FILE__ENV_VARS})
-
-    
 class Environment(object):
     """
     Metadata about the running environment.
     """
     PYTHON_VERSION = sys.version_info[0]
     PLATFORM = platform.system().title()
+
+
+def merge_env_vars(vars_dict):
+    """
+    Creates a dictionary of the current environment variables, updated by the provided `vars_dict` dictionary.
+    """
+    env_vars = os.environ.copy()
+    env_vars.update(vars_dict)
+    return env_vars
 
 
 class WrappedFile(object):
@@ -83,10 +86,12 @@ class WrappedFile(object):
     UTC_CREATION_DATETIME = "{WRAPPED_FILE__UTC_CREATION_DATETIME}"
     UTC_WRAP_DATETIME = "{WRAPPED_FILE__UTC_WRAP_DATETIME}"
     BASE64 = "{WRAPPED_FILE__BASE64}"
+    
+    # Add your own environment variables manually
+    ENV_VARS = merge_env_vars({WRAPPED_FILE__ENV_VARS})
 
 
 def unwrap_file(b64_data, file_name):
-
     if Environment.PYTHON_VERSION == 3:
         b64_data = bytes(b64_data, "utf-8")
 
@@ -101,7 +106,6 @@ def unwrap_file(b64_data, file_name):
 
 
 def checksum_file(file_path):
-
     with open(file_path, 'rb') as fp:
         file_data = fp.read()
 
@@ -112,7 +116,6 @@ def checksum_file(file_path):
 
 
 def main():
-
     all_args = sys.argv[1:]
 
     if Environment.PLATFORM != WrappedFile.TARGET_PLATFORM:
@@ -124,7 +127,7 @@ def main():
     unwrap_file_path = os.path.join(unwrap_directory, WrappedFile.FILE_NAME)
 
     if not os.path.isfile(unwrap_file_path) or not checksum_file(unwrap_file_path) == WrappedFile.CHECKSUM:
-        
+
         try:
             os.makedirs(unwrap_directory)
         except OSError as e:
@@ -137,7 +140,7 @@ def main():
     if Environment.PLATFORM != "Windows":
         run_args[0] = '.' + run_args[0]
 
-    subprocess.call(run_args, shell=False, env=ENV_VARS)
+    subprocess.call(run_args, shell=False, env=WrappedFile.ENV_VARS)
 
 
 if __name__ == '__main__':
@@ -183,6 +186,21 @@ def equal_paths(path1, path2, *paths):
                for path in paths)
 
 
+def build_env_vars(vars):
+    
+    env_vars = vars if vars else []
+    env_vars_str = json.dumps((dict(var.split('=', 1) for var in env_vars)), indent=8)
+
+    # Construct `WrappedFile.ENV_VARS` tail
+    space = " "
+    if env_vars:
+        env_vars_str = env_vars_str[:-1] + space * 4 + "}"
+    else:
+        # If no additional environment variables were provided, at least make it comfortable for manual editing
+        env_vars_str = "{\n" + space * 8 + "\n" + space * 4 + "}"
+
+    return env_vars_str
+
 def main():
 
     parser = argparse.ArgumentParser(description="Wraps an executable binary file inside a Python source file, "
@@ -212,13 +230,6 @@ def main():
     else:
         target_platform = Environment.PLATFORM
 
-    env_vars = args.env if args.env else []
-    env_vars_str = json.dumps((dict(var.split('=', 1) for var in env_vars)), indent=4)
-
-    # If no additional environment variables were provided, at least make it comfortable for manual editing
-    if env_vars_str == "{}":
-        env_vars_str = "{\n    \n}"
-
     wrapper_name = os.path.basename(__file__)
     file_path = args.executable
 
@@ -237,7 +248,7 @@ def main():
         .replace("{WRAPPED_FILE__UTC_CREATION_DATETIME}", creation_time(file_path).isoformat())
         .replace("{WRAPPED_FILE__UTC_WRAP_DATETIME}", datetime.utcnow().isoformat())
         .replace("{WRAPPED_FILE__BASE64}", payload)
-        .replace("{WRAPPED_FILE__ENV_VARS}", env_vars_str)
+        .replace("{WRAPPED_FILE__ENV_VARS}", build_env_vars(args.env))
     )
 
     if Environment.PYTHON_VERSION == 3:
