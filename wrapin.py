@@ -214,11 +214,13 @@ def build_env_vars(vars):
 
     # Construct `WrappedFile.ENV_VARS` tail
     space = " "
+    tail = space * 4 + "}"
+
     if env_vars:
-        env_vars_str = env_vars_str[:-1] + space * 4 + "}"
+        env_vars_str = env_vars_str[:-1] + tail
     else:
         # If no additional environment variables were provided, at least make it comfortable for manual editing
-        env_vars_str = "{\n" + space * 8 + "\n" + space * 4 + "}"
+        env_vars_str = "{\n" + space * 8 + "\n" + tail
 
     return env_vars_str
 
