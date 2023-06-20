@@ -100,6 +100,12 @@ def unwrap_file(b64_data, file_name):
 
     compressed = base64.b64decode(b64_data)
     data_bytes = zlib.decompress(compressed)
+
+    if os.path.isfile(file_name):
+
+        # If we are overwriting, make sure we have Write permission
+        os.chmod(file_name, stat.S_IWUSR)
+
     with open(file_name, 'wb') as fp:
         fp.write(data_bytes)
 
