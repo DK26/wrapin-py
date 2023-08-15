@@ -153,8 +153,8 @@ Select the language of choice:
 
 The following compiler configurations are highly recommended for minimalist environments such as AWS Lambdas, cloud Docker containers or any other realtime/near realtime systems.
 
-- Configure `Cargo.toml` to optimize the `--release` build for size  
-  - Use `panic = 'abort'` to exit on panic rather than unwind, unless you are catching unwind to recover from panics in your use case
+- Configure `Cargo.toml` to optimize the `--release` build for both size and speed  
+- Use `panic = 'abort'` to exit on panic rather than unwind, unless you are catching unwind to recover from panics in your use case  
 
 ```toml
 [profile.release]
@@ -166,7 +166,7 @@ incremental = true  # Improves compile-time speed
 opt-level = 3       # Optimizes binary execution-times
 ```
 
-- To further improve binary sizes, it is usually recommended to disable `default-features` for crates, and pick only the required ones when possible
+- To further improve binary sizes, it is often recommended to disable `default-features` for specific crates, and pick only the required ones when reasonable and possible
 
 > ### BONUS: Compile-time Optimization for Linux
 > Install and configure the [Mold Linker](https://github.com/rui314/mold) linker
