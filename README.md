@@ -169,7 +169,7 @@ opt-level = 3       # Optimizes binary execution-times
 - To further improve binary sizes, it is often recommended to disable `default-features` for specific crates, and pick only the required ones when reasonable and possible
 
 > ### BONUS: Compile-time Optimization for Linux
-> Install and configure the [Mold Linker](https://github.com/rui314/mold) linker
+> Install and configure the [Mold Linker](https://github.com/rui314/mold)  
 
 
 
