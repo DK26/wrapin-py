@@ -149,27 +149,31 @@ Select the language of choice:
 <details>
 <summary>Rust (click to expand)</summary>
 
-### Optimize for Size
+### Optimize for both Size & Performance
 
-Unless you have some very specific requirements, it is recommended for you to optimize your binary for size in the context of scripting.
+The following compiler configurations are highly recommended for minimalist environments such as AWS Lambdas, cloud Docker containers or any other realtime/near realtime systems.
 
 - Configure `Cargo.toml` to optimize the `--release` build for size  
   - Use `panic = 'abort'` to exit on panic rather than unwind, unless you are catching unwind to recover from panics in your use case
 
 ```toml
 [profile.release]
-panic = 'abort'
-codegen-units = 1
-incremental = false
-lto = true
-opt-level = 'z' # Optimize for size
+panic = 'abort'     # Reduces binary size
+strip = true        # Reduces binary size
+codegen-units = 1   # Improves optimization
+lto = true          # Improves optimization
+incremental = true  # Improves compile-time speed
+opt-level = 3       # Optimizes binary execution-times
 ```
 
-### Building to 32-bit Targets (Reducing Size)
+- To further improve binary sizes, it is usually recommended to disable `default-features` for crates, and pick only the required ones when possible
 
-Add a 32-bit target to reduce the binary size, unless you are expected to use more than 4 GB RAM or having some other limiting reason to do so.
+> ### BONUS: Compile-time Optimization for Linux
+> Install and configure the [Mold Linker](https://github.com/rui314/mold) linker
 
-- If you insist on a 64-bit binary, replace all `i686` values with `x86_64`
+
+
+### Building Targets for Size & Performance
 
 ---
 
@@ -193,28 +197,27 @@ cargo build --target=i686-pc-windows-msvc --release
 ---
 
 <details>
-<summary>Linux 32-bit (click to expand)</summary>
+<summary>Linux 32-bit / 64-bit (click to expand)</summary>
 
 Since we are most probably building for a limited jail or sandbox environment, our best chance is to compile to `musl` instead of `gnu`, since `gnu` is using APIs that are dynamically linked and may be absent within the context of the sandbox.  
 
 ### GNU & MUSL
 
 - You can always try `gnu` first and fallback to `musl`  
-- Using `musl` requires you to use pure Rust alternative libraries. e.g. replace `rust-native-tls` with `rust-tls`  
-- Don't get discouraged using `musl` if your `gnu` binary cannot access dynamically linked libraries; This could also explain why some of your python code is unable to perform certain functionalities as well. With `musl` you can get a chance to overcome these problems.
+- Using `musl` allows you to produce standalone executables that are self-sufficient. Combine this with statically linked libraries such as `rusttls` or `openssl` with the `vendored` feature enabled, and you can run it on every environment, including a scratch Docker image container.
 
 ### Building Proper   
 
-Add `i686-unknown-linux-musl` to the rustup toolchain
+Add `x86_64-unknown-linux-musl` to the rustup toolchain
 
 ```bash
-rustup target add i686-unknown-linux-musl
+rustup target add x84_64-unknown-linux-musl
 ```
 
 Build target
 
 ```bash
-cargo build --target=i686-unknown-linux-musl --release
+cargo build --target=x84_64-unknown-linux-musl --release
 ```
 
 </details>
@@ -229,6 +232,7 @@ cargo build --target=i686-unknown-linux-musl --release
 
 - QRadar Community Edition 7.3.3 (`Custom Actions`)
   - Rust binary file, compiled for  `i686-unknown-linux-musl`
+  - Rust binary file, compiled for  `x86_64-unknown-linux-musl` with the `MiMalloc` heap-memory allocator (tested both in normal and secure modes)
 
 ## Contribution  
 
