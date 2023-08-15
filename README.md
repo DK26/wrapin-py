@@ -2,7 +2,7 @@
 
 Pronounced: _Wrap-In-Pie_  
 
-Wraps an executable binary file inside a Python source file and delegates calls to the wrapped binary, enabling the usage of a compiled executable in a sandboxed or jailed execution environment that is usually limited to a python script.
+Wraps an executable binary file inside a Python source file and delegates calls to the wrapped binary, enabling the usage of a compiled executable in a sandbox or jailed execution environment that is usually limited to a python script.
 
 `wrapin-py` is cross-platform and supporting both Python 2 and Python 3 environments.
 
@@ -36,8 +36,8 @@ As I worked with the Rust programming language recently, I realized it has some 
 
 ## Advantages of a Self-Contained low-level Binary
 
-1. __*Single file*__, independent of any runtime environment, can be embedded with third-party libraries while offering more advanced APIs, such that are not part of the core Python libraries which are provided by default in the sandboxed environment  
-   - __Caveat:__ In restricted, stripped environments, this can work as long as your binary does not try to use dynamically linked APIs which may be restricted or completely missing in that sandboxed environment (e.g. `cmake` or native `OpenSSL`).
+1. __*Single file*__, independent of any runtime environment, can be embedded with third-party libraries while offering more advanced APIs, such that are not part of the core Python libraries which are provided by default in the sandbox environment  
+   - __Caveat:__ In restricted, stripped environments, this can work as long as your binary does not try to use dynamically linked APIs which may be restricted or completely missing in that sandbox environment (e.g. `cmake` or native `OpenSSL`).
 
 2. Written in a strongly typed, statically compiled programming language for a complex project, can detect potential problems at compile-time, long before they reach production, especially for the rare, "invisible" bug cases that camouflage themselves within tons of code so they can show up at the worse moment in production.
 
@@ -195,7 +195,7 @@ cargo build --target=i686-pc-windows-msvc --release
 <details>
 <summary>Linux 32-bit (click to expand)</summary>
 
-Since we are most probably building for a limited jail or sandboxed environment, our best chance is to compile to `musl` instead of `gnu`, since `gnu` is using APIs that are dynamically linked and may be absent within the context of the sandbox.  
+Since we are most probably building for a limited jail or sandbox environment, our best chance is to compile to `musl` instead of `gnu`, since `gnu` is using APIs that are dynamically linked and may be absent within the context of the sandbox.  
 
 ### GNU & MUSL
 
